@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Personal Assistant for Education</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #assistant {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+        #messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+        .assistant-message {
+            text-align: left;
+            color: green;
+        }
+        #input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #send {
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #send:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="assistant">
+    <h2>AI Personal Assistant</h2>
+    <div id="messages"></div>
+    <input type="text" id="input" placeholder="Ask me anything..." />
+    <button id="send">Send</button>
+</div>
+
+<script>
+    const messagesDiv = document.getElementById('messages');
+    const inputField = document.getElementById('input');
+    const sendButton = document.getElementById('send');
+
+    sendButton.addEventListener('click', () => {
+        const userInput = inputField.value;
+        if (userInput.trim() === '') return;
+
+        // Display user message
+        displayMessage(userInput, 'user-message');
+        inputField.value = '';
+
+        // Simulate AI response
+        setTimeout(() => {
+            const assistantResponse = getAssistantResponse(userInput);
+            displayMessage(assistantResponse, 'assistant-message');
+        }, 1000);
+    });
+
+    function displayMessage(message, className) {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messageElement.className = className;
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+    }
+
+    function getAssistantResponse(input) {
+        // Simple keyword-based responses
+        const responses = {
+            'hello': 'Hello! How can I assist you today?',
+            'homework': 'Remember to manage your time wisely!',
+            'study': 'Make sure to take breaks while studying!',
+            'exam': 'Good luck with your exams! Preparation is key.',
+            'default': 'I am not sure how to respond to that. Can you ask something else?'
+        };
+
+        const lowerInput = input.toLowerCase();
+        for (const key in responses) {
+            if (lowerInput.includes(key)) {
+                return responses[key];
+            }
+        }
+        return responses['default'];
+    }
+</script>
+
+</body>
+</html>
